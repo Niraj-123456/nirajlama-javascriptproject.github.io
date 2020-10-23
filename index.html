@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>JavaScript Course</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<!-- Rock, Paper and Scissor Game -->
+<div class="container1" id="container1">
+    <div class="row1">
+        <div class="col">
+            <p>Welcome to Rock, Paper, Scissor Game!!!</p>
+        </div>
+    </div>
+    <div class="row2" id="row2">
+        <div id="game-image" class="game-image">
+            <div class="btn btn-default image" data-id="paper">
+                <img src="../static/images/paper.jpg" alt="paper">
+                <div class="desc">
+                    Paper
+                </div>
+            </div>
+            <div class="btn btn-default image" data-id="rock">
+                <img src="../static/images/rock.jpg" alt="rock">
+                <div class="desc">
+                    Rock
+                </div>
+            </div>
+            <div class="btn btn-default image" data-id="scissor">
+                <img src="../static/images/scissor.jpeg" alt="scissor">
+                <div class="desc">
+                    Scissor
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row3">
+        <p>
+            Press on the above image to start the game!!!
+        </p>
+    </div>
+    <div class="row4">
+        <p>
+            Result:
+        </p>
+        <div class="col-md-6 offset-3">
+            <div id="result">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Age conversion to days -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div>
+            <h3>Age Conversion App!!!</h3>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        <div>
+            <p>Click the button below to enter your age</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="button">
+            <button class="btn btn-primary" onclick="ageInDays()">Convert</button>
+        </div>
+        <div class="button" data-action="reset">
+            <button class="btn btn-danger" onclick="reset()">Reset</button>
+        </div>
+    </div>
+    <div class="row justify-content-center" id="age-in-days">
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <h3>Cat Generator!!!</h3>
+    </div>
+    <hr>
+    <div class="row justify-content-center">
+        <button class="btn btn-success mb-2" onclick="generateCat()">Generate Cat</button>
+    </div>
+    <div class="row-flex-box">
+        <div id="cat-flex-box">
+
+        </div>
+    </div>
+</div>
+<div class="container-black-jack">
+    <div class="title">
+        <h3>BlackJack</h3>
+        <h5><span id="blackjack-result">Let's Play!!!</span></h5>
+    </div>
+    <div class="blackjack-flexbox-row1">
+        <div id="your-box">
+            <h3>You: <span id="blackjack-your-score">0</span></h3>
+        </div>
+        <div id="challenger-box">
+            <h3>Challenger: <span id="blackjack-challenger-score">0</span></h3>
+        </div>
+    </div>
+    <div class="blackjack-flexbox-row2">
+        <div>
+            <button class="btn btn-success" id="blackjack-hit-button">Hit</button>
+            <button class="btn btn-warning" id="blackjack-stand-button">stand</button>
+            <button class="btn btn-danger" id="blackjack-deal-button">Deal</button>
+        </div>
+    </div>
+    <div class="blackjack-flexbox-row3">
+        <table class="table-sm table-bordered">
+            <tr>
+                <th scope="col">Wins</th>
+                <th scope="col">Losses</th>
+                <th scope="col">Draws</th>
+            </tr>
+            <tr>
+                <td><span id="wins">0</span></td>
+                <td><span id="losses">0</span></td>
+                <td><span id="draws">0</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="../static/js/index.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+</html>
