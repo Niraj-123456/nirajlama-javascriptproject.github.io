@@ -123,7 +123,7 @@
     margin: 5px;
     height: auto;
     color: #ffffff;
-    background-image: url('../images/blackjack_title_image.jpg');
+    background-image: url('blackjack_title_image.jpg');
     background-position: center;
 }
 
@@ -137,17 +137,17 @@
 }
 
 .blackjack-flexbox-row1{
-    background-image: url('../images/bj_background_image.jpg');
+    background-image: url('bj_background_image.jpg');
     background-position: center;
 }
 
 .blackjack-flexbox-row2{
     padding: 10px;
-    background-image: url('../images/button_background2.png');
+    background-image: url('button_background2.png');
 }
 
 .blackjack-flexbox-row3{
-    background-image: url('../images/button_background3.png');
+    background-image: url('button_background3.png');
 }
 
 .blackjack-flexbox-row2 table, th, tr, td{
