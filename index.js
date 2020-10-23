@@ -77,17 +77,17 @@ function startGame(id){
     image1.src = ""
 
     if(id == "paper"){
-        image1.src = "../static/images/paper.jpg"
+        image1.src = "paper.jpg"
         var desc = document.createTextNode("You chose Paper")
         div4.appendChild(desc)
     }
     else if(id == "rock"){
-        image1.src = "../static/images/rock.jpg"
+        image1.src = "rock.jpg"
         var desc = document.createTextNode("You chose Rock")
         div4.appendChild(desc)
     }
     else if(id == "scissor"){
-        image1.src = "../static/images/scissor.jpeg"
+        image1.src = "scissor.jpeg"
         var desc = document.createTextNode("You chose Scissor")
         div4.appendChild(desc)
     }
@@ -161,7 +161,7 @@ const CHALLENGER = blackJackGame['challenger']
 function blackJackHit(){
     console.log('you hit me.')
     let cardImage = document.createElement('img')
-    cardImage.src = '../static/images/Q.png'
+    cardImage.src = 'Q.png'
     document.querySelector(YOU['div']).appendChild(cardImage)
 }
 
