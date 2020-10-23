@@ -98,17 +98,17 @@ function startGame(id){
     var image2 = document.createElement('img')
     image2.src = ""
     if(random == 0){
-        image2.src = "../static/images/rock.jpg"
+        image2.src = "rock.jpg"
         var desc = document.createTextNode("Computer chose Rock")
         div5.appendChild(desc)
     }
     else if(random == 1){
-        image2.src = "../static/images/paper.jpg"
+        image2.src = "paper.jpg"
         var desc = document.createTextNode("Computer chose Paper")
         div5.appendChild(desc)
     }
     else if(random == 2){
-        image2.src = "../static/images/scissor.jpeg"
+        image2.src = "scissor.jpeg"
         var desc = document.createTextNode("Computer chose Scissor")
         div5.appendChild(desc)
     }
