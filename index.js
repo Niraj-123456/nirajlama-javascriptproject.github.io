@@ -148,21 +148,186 @@ function generateCat(){
 }
 
 // blackjack game challenge
-document.querySelector('#blackjack-hit-button').addEventListener('click', blackJackHit);
-
 let blackJackGame = {
     'you' : {'scoreSpan': '#blackjack-your-score', 'div': '#your-box', 'score': 0},
     'challenger' : {'scoreSpan': '#blackjack-challenger-score', 'div': '#challenger-box', 'score': 0},
+    'card': ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'K', 'J', 'Q', 'A'],
+    'cardMap' : {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'K': 10, 'J': 10, 'Q': 10, 'A': [1, 11]},
+    'wins': 0,
+    'losses': 0,
+    'draws': 0,
+    'isStand': false,
+    'turnsOver': false,
 }
 
 const YOU = blackJackGame['you']
 const CHALLENGER = blackJackGame['challenger']
 
+const hitSound = new Audio('swish.m4a')
+const winSound = new Audio('cash.mp3')
+const lossSound = new Audio('aww.mp3')
+
+document.querySelector('#blackjack-hit-button').addEventListener('click', blackJackHit);
+
+document.querySelector('#blackjack-stand-button').addEventListener('click', challengerLogic);
+
+document.querySelector('#blackjack-deal-button').addEventListener('click', blackJackDeal);
+
+
 function blackJackHit(){
-    console.log('you hit me.')
-    let cardImage = document.createElement('img')
-    cardImage.src = 'Q.png'
-    document.querySelector(YOU['div']).appendChild(cardImage)
+    if(blackJackGame['isStand'] === false){
+        let card = randomCard()
+        showCard(card, YOU)
+        updateScore(card, YOU)
+        showScore(YOU)
+    }  
 }
 
+function randomCard(){
+    let randomIndex = Math.floor(Math.random() * 13)
+    return blackJackGame['card'][randomIndex]
+}
 
+function showCard(card, activePlayer){
+    if(activePlayer['score'] <= 21){
+        let cardImage = document.createElement('img')
+        cardImage.src = `${card}.png`
+        document.querySelector(activePlayer['div']).appendChild(cardImage);
+        hitSound.play()
+    }
+}
+
+function blackJackDeal(){
+    if(blackJackGame['turnsOver'] === true){
+        blackJackGame['isStand'] = false
+        let yourImages = document.querySelector('#your-box').querySelectorAll('img')
+        let dealerImages = document.querySelector('#challenger-box').querySelectorAll('img')
+
+        for(i=0; i<yourImages.length; i++){
+            yourImages[i].remove()
+        }
+
+        for(i=0; i<dealerImages.length; i++){
+            dealerImages[i].remove();
+        }
+
+        YOU['score'] = 0
+        CHALLENGER['score'] = 0
+
+        document.querySelector('#blackjack-your-score').textContent = 0
+        document.querySelector('#blackjack-your-score').style.color = '#ffffff'
+
+        document.querySelector('#blackjack-challenger-score').textContent = 0
+        document.querySelector('#blackjack-challenger-score').style.color = '#ffffff'
+
+        document.querySelector('#blackjack-result').textContent = "Let's Play"
+        document.querySelector('#blackjack-result').style.color = '#ffffff'
+
+        blackJackGame['turnsOver'] = false
+    }
+}
+
+function updateScore(card, activePlayer){
+    if(card === 'A'){
+        //if adding 11 keeps the current score below or equal to 21 add 11 else add 1
+        if((activePlayer['score'] + blackJackGame['cardMap'][card][1]) <= 21){
+            activePlayer['score'] += blackJackGame['cardMap'][card][1]
+        }
+        else{
+            activePlayer['score'] += blackJackGame['cardMap'][card][0]
+        }
+    }
+    else{
+        activePlayer['score'] += blackJackGame['cardMap'][card]
+    }
+}
+
+function showScore(activePlayer){
+    if(activePlayer['score'] > 21){
+        document.querySelector(activePlayer['scoreSpan']).textContent = 'BUST'
+        document.querySelector(activePlayer['scoreSpan']).style.color = 'red'
+    }
+    else{
+        document.querySelector(activePlayer['scoreSpan']).textContent = activePlayer['score']
+    }
+}
+
+function sleep(ms){
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function challengerLogic(){
+    blackJackGame['isStand'] = true
+
+    while(CHALLENGER['score'] < 16 && blackJackGame['isStand'] === true){
+        let card = randomCard()
+        showCard(card, CHALLENGER)
+        updateScore(card, CHALLENGER)
+        showScore(CHALLENGER)
+        await sleep(1000)
+    }
+
+    blackJackGame['turnsOver'] = true
+    let winner = computeWinner()
+    showResult(winner)
+}
+
+// compute the winner
+function computeWinner(){
+    let winner
+
+    // if your score is less than 21 but challengers score is greater than 21 or less than your score
+    if(YOU['score'] <= 21 ){
+        if(YOU['score'] > CHALLENGER['score'] || CHALLENGER['score'] > 21){
+            blackJackGame['wins']++
+            winner = YOU
+        }
+        else if(YOU['score'] < CHALLENGER['score']){
+            blackJackGame['losses']++
+            winner = CHALLENGER
+        }
+        else if(YOU['score'] === CHALLENGER['score']){
+            blackJackGame['draws']++
+        }
+    }
+    // if your score is greate than 21 and challengers score is less than or equal to 21
+    else if(YOU['score'] > 21 && CHALLENGER['score'] <= 21){
+        blackJackGame['losses']++
+        winner = CHALLENGER
+    }
+    // both the players score is greater than 21
+    else if(YOU['score'] > 21 && CHALLENGER['score'] > 21){
+        blackJackGame['draws']++
+    }
+    return winner
+}
+
+// show the winner
+function showResult(winner){
+    let message, messageColor
+
+    if(blackJackGame['turnsOver'] === true){
+        if(winner === YOU){
+            document.querySelector('#wins').textContent = blackJackGame['wins']
+            message = 'You Won'
+            messageColor = 'green'
+            winSound.play()
+        }
+    
+        else if(winner === CHALLENGER){
+            document.querySelector('#losses').textContent = blackJackGame['losses']
+            message = 'You Lost'
+            messageColor = 'red'
+            lossSound.play()
+        }
+    
+        else{
+            document.querySelector('#draws').textContent = blackJackGame['draws']
+            message = 'Draw'
+            messageColor = 'black'
+        }
+    
+        document.querySelector('#blackjack-result').textContent = message
+        document.querySelector('#blackjack-result').style.color = messageColor   
+    }
+}
